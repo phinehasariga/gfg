@@ -26,15 +26,33 @@ class Geeks {
 class Solution {
     static int majorityElement(int arr[]) {
         // code here
-            Arrays.sort(arr);
-        int candidate = arr[arr.length / 2];
+        int candidate = 0;
         int count = 0;
 
+        // First pass to find the candidate
         for (int num : arr) {
-            if (num == candidate) count++;
+            if (count == 0) {
+                candidate = num;
+                count = 1;
+            } else if (num == candidate) {
+                count++;
+            } else {
+                count--;
+            }
         }
 
-        return (count > arr.length / 2) ? candidate : -1;
-    
+        // Second pass to verify the candidate
+        count = 0;
+        for (int num : arr) {
+            if (num == candidate) {
+                count++;
+            }
+        }
+
+        if (count > arr.length / 2) {
+            return candidate;
+        } else {
+            return -1;
+        }
     }
 }
