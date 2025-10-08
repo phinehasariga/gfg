@@ -1,17 +1,28 @@
+/*
+class Node {
+    int data;
+    Node left;
+    Node right;
+
+    Node(int val) {
+        data = val;
+        left = right = null;
+    }
+}
+*/
+
 class Solution {
     // Function to check whether a Binary Tree is BST or not.
+    int maxtillnow = -1;
     boolean isBST(Node root) {
         // code here.
-               return isBSTUtil(root, Long.MIN_VALUE, Long.MAX_VALUE);
-    }
-
-    // Helper function that uses min and max range
-    boolean isBSTUtil(Node node, long min, long max) {
-        if (node == null) return true;
-
-        if (node.data <= min || node.data >= max) return false;
-
-        return isBSTUtil(node.left, min, node.data) &&
-               isBSTUtil(node.right, node.data, max);
+        if(root == null){
+            return true;
+        }
+        if(!isBST(root.left))return false;
+        if(root.data < maxtillnow)return false;
+        maxtillnow = root.data;
+        
+        return isBST(root.right);
     }
 }
